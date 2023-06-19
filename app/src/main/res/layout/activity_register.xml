@@ -4,16 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:orientation="vertical"
-    tools:context=".MainActivity">
-
-<ImageView
-    android:layout_width="@dimen/_150sdp"
-    android:layout_gravity="center"
-    android:layout_height="@dimen/_130sdp"
-    android:layout_marginTop="@dimen/_30sdp"
-    android:src="@drawable/contacts"/>
+    tools:context=".Register">
+    <ImageView
+        android:layout_width="@dimen/_150sdp"
+        android:layout_gravity="center"
+        android:layout_height="@dimen/_130sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:src="@drawable/contacts"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,23 +24,33 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign in"
+        android:text="Registeration"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/_30sdp"
         android:textSize="@dimen/_20sdp"
         android:textColor="@color/black"
         android:textStyle="bold"/>
 
-  <EditText
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="Email"
-      android:layout_margin="@dimen/_5sdp"
-      android:textSize="@dimen/_20sdp"
-      android:padding="@dimen/_8sdp"
-      android:textStyle="normal"
-      android:textColor="@color/black"
-      android:id="@+id/login_name"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="name"
+        android:layout_margin="@dimen/_5sdp"
+        android:textSize="@dimen/_20sdp"
+        android:padding="@dimen/_8sdp"
+        android:textStyle="normal"
+        android:textColor="@color/black"
+        android:id="@+id/register_name"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:textSize="@dimen/_20sdp"
+        android:textStyle="normal"
+        android:layout_margin="@dimen/_5sdp"
+        android:padding="@dimen/_8sdp"
+        android:textColor="@color/black"
+        android:id="@+id/register_email"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,38 +60,25 @@
         android:layout_margin="@dimen/_5sdp"
         android:padding="@dimen/_8sdp"
         android:textColor="@color/black"
-        android:id="@+id/login_password"/>
+        android:id="@+id/register_password"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Conform Password"
+        android:textSize="@dimen/_20sdp"
+        android:textStyle="normal"
+        android:layout_margin="@dimen/_5sdp"
+        android:padding="@dimen/_8sdp"
+        android:textColor="@color/black"
+        android:id="@+id/register_conformpassword"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Login"
+        android:text="@string/Register"
         android:layout_marginTop="@dimen/_10sdp"
         android:background="@color/black"
         app:backgroundTint="@null"
-        android:id="@+id/login_button"/>
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/_60sdp"
-    android:layout_marginTop="@dimen/_20sdp">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Don't have register?"
-        android:textSize="@dimen/_15sdp"
-        android:textColor="@color/black"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:id="@+id/text"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/text"
-        android:text="@string/Register"
-        android:textSize="@dimen/_15sdp"
-        android:layout_marginLeft="@dimen/_10sdp"
-        android:textColor="@color/blue"
-        android:id="@+id/register_text"
-        ></TextView>
-</RelativeLayout>
+        android:id="@+id/regi_button"/>
 
 </LinearLayout>

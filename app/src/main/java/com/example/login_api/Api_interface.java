@@ -9,4 +9,7 @@ public interface Api_interface {
     @FormUrlEncoded
     @POST("register.php")
     Call<RegisterData> REGISTER_DATA_CALL(@Field("name") String name,@Field("email")String email,@Field("password")String password,@Field("confirmpassword")String confirmpassword);
+    @FormUrlEncoded
+    @POST("login.php")
+    Call<loginmodel>LOGINMODEL_CALL(@Field("EMAIL") String email,@Field("PASSWORD") String password);
 }
