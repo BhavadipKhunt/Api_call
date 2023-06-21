@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,10 +33,10 @@ Button button;
             @Override
             public void onClick(View view) {
                 if (netwotk()) {
-                    String name, email, pass, conpass;
+                    String name, email, password, conpass;
                     name = nametxt.getText().toString();
                     email = emailtxt.getText().toString();
-                    pass = passwordtxt.getText().toString();
+                    password = passwordtxt.getText().toString();
                     conpass = conformpasstxt.getText().toString();
                     if (nametxt.getText().toString().equals(" ")) {
                         nametxt.setError("Name can't empty!");
@@ -47,13 +48,15 @@ Button button;
                     } else if (conformpasstxt.getText().toString().equals(" ")) {
                         conformpasstxt.setError("Enter confirmpassword");
                     } else {
-                        if (pass != conpass) {
+                        if (!password.equals(conpass)) {
                             conformpasstxt.setError("please enter same password");
-                        } else {
+                        }
+                        else {
 
-                            retro_class.callapi().REGISTER_DATA_CALL(name, email, pass, conpass).enqueue(new Callback<RegisterData>() {
+                            retro_class.callapi().REGISTER_DATA_CALL(name, email, password).enqueue(new Callback<RegisterData>() {
                                 @Override
                                 public void onResponse(Call<RegisterData> call, Response<RegisterData> response) {
+                                    Log.d("EEE", "onResponse: "+response.body().toString());
                                     if (response.body().getConnection() == 1) {
                                         if (response.body().getResult() == 1) {
                                             Intent intent = new Intent(Register.this, MainActivity.class);
@@ -71,7 +74,7 @@ Button button;
 
                                 @Override
                                 public void onFailure(Call<RegisterData> call, Throwable t) {
-
+                                    Log.e("EEE", "onFailure: "+t.getLocalizedMessage());
                                 }
                             });
                         }

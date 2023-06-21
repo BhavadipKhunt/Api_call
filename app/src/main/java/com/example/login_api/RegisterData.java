@@ -30,4 +30,11 @@ public void setResult(Integer result) {
 this.result = result;
 }
 
+    @Override
+    public String toString() {
+        return "RegisterData{" +
+                "connection=" + connection +
+                ", result=" + result +
+                '}';
+    }
 }
