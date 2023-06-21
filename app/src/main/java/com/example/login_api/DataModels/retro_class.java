@@ -1,10 +1,12 @@
-package com.example.login_api;
+package com.example.login_api.DataModels;
+
+import com.example.login_api.Api_interface;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class retro_class {
-    public  static  Api_interface callapi(){
+    public  static Api_interface callapi(){
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl("https://bhavadipandroid.000webhostapp.com/android/")
                 .addConverterFactory(GsonConverterFactory.create())

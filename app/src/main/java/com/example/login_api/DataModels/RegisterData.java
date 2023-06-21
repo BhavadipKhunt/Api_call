@@ -1,4 +1,4 @@
-package com.example.login_api;
+package com.example.login_api.DataModels;
 
 
 import com.google.gson.annotations.Expose;

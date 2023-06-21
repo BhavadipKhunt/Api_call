@@ -1,4 +1,4 @@
-package com.example.login_api;
+package com.example.login_api.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.login_api.DataModels.RegisterData;
+import com.example.login_api.DataModels.retro_class;
+import com.example.login_api.R;
 
 import retrofit2.Call;
 import retrofit2.Callback;

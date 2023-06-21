@@ -1,4 +1,4 @@
-package com.example.login_api;
+package com.example.login_api.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+
+import com.example.login_api.R;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -28,7 +30,7 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void run() {
                 if(isLogin) {
-                    Intent intent = new Intent(SplashScreen.this, Register.class);
+                    Intent intent = new Intent(SplashScreen.this, Ecommerce_activity.class);
                     startActivity(intent);
                     finish();
                 }

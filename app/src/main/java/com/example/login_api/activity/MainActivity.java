@@ -1,6 +1,6 @@
-package com.example.login_api;
+package com.example.login_api.activity;
 
-import static com.example.login_api.SplashScreen.editor;
+import static com.example.login_api.activity.SplashScreen.editor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.login_api.DataModels.LoginData;
+import com.example.login_api.DataModels.retro_class;
+import com.example.login_api.R;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,8 +53,11 @@ public class MainActivity extends AppCompatActivity {
                         {
                             editor.putBoolean("isLogin",true);
                             editor.commit();
+                            Intent intent=new Intent(MainActivity.this, Ecommerce_activity.class);
+                            startActivity(intent);
+                            finish();
                         }
-                        Toast.makeText(MainActivity.this, "Data=" + response.body(), Toast.LENGTH_SHORT).show();
+
                     }
 
                     @Override
