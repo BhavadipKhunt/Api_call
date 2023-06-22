@@ -26,10 +26,19 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
+import com.example.login_api.DataModels.ProductData;
 import com.example.login_api.DataModels.retro_class;
 import com.example.login_api.R;
+import com.example.login_api.fragment.Show_all_product;
 import com.example.login_api.fragment.home_fragment;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.Random;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Ecommerce_activity extends AppCompatActivity {
 NavigationView navigationView;
@@ -38,7 +47,7 @@ Toolbar toolbar;
 Button add;
 EditText pname,pdecs,pprice;
 ImageView imageView;
-TextView nametext,emailtext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,18 +55,25 @@ TextView nametext,emailtext;
         navigationView=findViewById(R.id.navigation);
         drawerLayout=findViewById(R.id.Drawer);
         toolbar=findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close);
-        drawerLayout.addDrawerListener(toggle);
-        nametext=findViewById(R.id.hader_name);
-        emailtext=findViewById(R.id.hader_email);
+        TextView nametext,emailtext;
+        View headerView = navigationView.getHeaderView(0);
+
+        nametext=headerView.findViewById(R.id.hader_name);
+        emailtext=headerView.findViewById(R.id.hader_email);
         String uname,uemail;
         int uid;
         uid= preferences.getInt("uid",0);
-        uname=preferences.getString("name","bhavadip");
-        uemail=preferences.getString("email","bhavadip12@gmail.com");
-
+        uname=preferences.getString("name","");
+        uemail=preferences.getString("email","");
+        Log.d("TTT", "onCreate: "+uname);
+        Log.d("TTT", "onCreate: "+uemail);
+        nametext.setText(""+uname);
+        emailtext.setText(""+uemail);
+        setSupportActionBar(toolbar);
+        ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close);
+        drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+   ;
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -100,10 +116,33 @@ TextView nametext,emailtext;
                     imageView=dialog.findViewById(R.id.product_image);
                     add.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onClick(View view) {
+                        public void onClick(View view)
+                        {
+                            String name,descri,price,image;
+                            name=pname.getText().toString();
+                            descri=pdecs.getText().toString();
+                            price=pprice.getText().toString();
+                            int r=new Random().nextInt(100);
+                            image="img_"+r+".png";
+                            retro_class.callapi().PRODUCT_DATA_CALL(uid,name,descri,price,image).enqueue(new Callback<ProductData>() {
+                                @Override
+                                public void onResponse(Call<ProductData> call, Response<ProductData> response) {
+                                    Log.d("ttt", "onResponse: "+response.body().toString());
+                                }
+
+                                @Override
+                                public void onFailure(Call<ProductData> call, Throwable t) {
+                                    Log.e("ttt", "onFailure: "+t.getLocalizedMessage() );
+                                }
+                            });
                         }
                     });
                     dialog.show();
+                }
+                if (item.getItemId()==R.id.show_all)
+                {
+                    addfragment(new Show_all_product());
+                    drawerLayout.closeDrawer(Gravity.LEFT);
                 }
                 return true;
             }

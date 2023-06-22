@@ -11,11 +11,11 @@
         android:layout_gravity="center"
         android:layout_height="@dimen/_130sdp"
         android:layout_marginTop="@dimen/_30sdp"
-        android:src="@drawable/contacts"/>
+        android:src="@drawable/img"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Contact Book"
+        android:text="Ecommerce"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/_10sdp"
         android:textSize="@dimen/_30sdp"
