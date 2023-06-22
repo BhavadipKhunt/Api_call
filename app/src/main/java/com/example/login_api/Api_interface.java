@@ -1,6 +1,7 @@
 package com.example.login_api;
 
 import com.example.login_api.DataModels.LoginData;
+import com.example.login_api.DataModels.ProductData;
 import com.example.login_api.DataModels.RegisterData;
 
 import retrofit2.Call;
@@ -15,4 +16,7 @@ public interface Api_interface {
     @FormUrlEncoded
     @POST("login.php")
     Call<LoginData>LOGINMODEL_CALL(@Field("email") String email, @Field("password") String password);
+    @FormUrlEncoded
+    @POST("addProduct.php")
+    Call<ProductData>PRODUCT_DATA_CALL(@Field("loginid") Integer uid,@Field("name") String pname,@Field("description")String decription,@Field("price") String price,@Field("imagename")String image);
 }

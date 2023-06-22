@@ -47,11 +47,15 @@ public class MainActivity extends AppCompatActivity {
                 retro_class.callapi().LOGINMODEL_CALL(email, password).enqueue(new Callback<LoginData>() {
                     @Override
                     public void onResponse(Call<LoginData> call, Response<LoginData> response) {
-                        Log.d("EEE", "onResponse: " + response.body().getUserdata());
+                        Log.d("EEE", "onResponse: " + response.body().getUserdata().getId());
                         Log.d("EEE", "onResponse: " + response.body().getResult());
                         if(response.body().getResult()==1)
                         {
                             editor.putBoolean("isLogin",true);
+                            editor.putString("name",response.body().getUserdata().getName());
+                            editor.putString("email",response.body().getUserdata().getEmail());
+                            editor.putInt("uid", Integer.parseInt(response.body().getUserdata().getId()));
+
                             editor.commit();
                             Intent intent=new Intent(MainActivity.this, Ecommerce_activity.class);
                             startActivity(intent);
