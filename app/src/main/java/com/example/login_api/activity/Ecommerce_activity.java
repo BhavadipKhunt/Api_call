@@ -4,6 +4,7 @@ import static com.example.login_api.activity.SplashScreen.editor;
 import static com.example.login_api.activity.SplashScreen.preferences;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,11 @@ import androidx.fragment.app.FragmentTransaction;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -33,7 +39,11 @@ import com.example.login_api.R;
 import com.example.login_api.fragment.Show_all_product;
 import com.example.login_api.fragment.home_fragment;
 import com.google.android.material.navigation.NavigationView;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.ByteArrayOutputStream;
+import java.util.Base64;
 import java.util.Random;
 
 import retrofit2.Call;
@@ -47,6 +57,7 @@ Toolbar toolbar;
 Button add;
 EditText pname,pdecs,pprice;
 ImageView imageView;
+String image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +84,7 @@ ImageView imageView;
         ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-   ;
+        addfragment(new home_fragment());
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -114,17 +125,31 @@ ImageView imageView;
                     pdecs=dialog.findViewById(R.id.product_desc);
                     pprice=dialog.findViewById(R.id.product_price);
                     imageView=dialog.findViewById(R.id.product_image);
+                    imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            CropImage.activity()
+                                    .setGuidelines(CropImageView.Guidelines.ON)
+                                    .start(Ecommerce_activity.this);
+                        }
+                    });
                     add.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view)
                         {
-                            String name,descri,price,image;
+                            String name,descri,price;
                             name=pname.getText().toString();
                             descri=pdecs.getText().toString();
                             price=pprice.getText().toString();
                             int r=new Random().nextInt(100);
-                            image="img_"+r+".png";
-                            retro_class.callapi().PRODUCT_DATA_CALL(uid,name,descri,price,image).enqueue(new Callback<ProductData>() {
+                            Bitmap bitmap= ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+                            ByteArrayOutputStream bos=new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.JPEG,30,bos);
+                            byte[] byteArray = bos.toByteArray();
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                image= Base64.getEncoder().encodeToString(byteArray);
+                            }
+                            retro_class.callapi().PRODUCT_DATA_CALL(uid,name,price,descri,image).enqueue(new Callback<ProductData>() {
                                 @Override
                                 public void onResponse(Call<ProductData> call, Response<ProductData> response) {
                                     Log.d("ttt", "onResponse: "+response.body().toString());
@@ -135,6 +160,7 @@ ImageView imageView;
                                     Log.e("ttt", "onFailure: "+t.getLocalizedMessage() );
                                 }
                             });
+                        dialog.dismiss();
                         }
                     });
                     dialog.show();
@@ -154,5 +180,19 @@ ImageView imageView;
         FragmentTransaction transaction= manager.beginTransaction();
         transaction.replace(R.id.frame,fragment);
         transaction.commit();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+                imageView.setImageURI(resultUri);
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
+        }
     }
 }

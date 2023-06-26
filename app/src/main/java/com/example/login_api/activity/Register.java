@@ -36,7 +36,7 @@ Button button;
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (netwotk()) {
+
                     String name, email, password, conpass;
                     name = nametxt.getText().toString();
                     email = emailtxt.getText().toString();
@@ -84,16 +84,8 @@ Button button;
                         }
                     }
                 }
-                else {
-
-                }
-            }
         });
     }
 
-    private boolean netwotk() {
-        ConnectivityManager manager= (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo info=manager.getActiveNetworkInfo();
-        return (info != null && info.isConnected());
-    }
+
 }

@@ -49,6 +49,8 @@
         android:hint="Password"
         android:textSize="@dimen/_20sdp"
         android:textStyle="normal"
+        android:inputType="textPassword"
+
         android:layout_margin="@dimen/_5sdp"
         android:padding="@dimen/_8sdp"
         android:textColor="@color/black"

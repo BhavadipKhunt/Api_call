@@ -43,21 +43,20 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String email = nametext.getText().toString();
                 String password = passwordtext.getText().toString();
-                Log.d("EEE", "onClick: email="+email+"/tPass="+password);
+                Log.d("EEE", "onClick: email=" + email + "/tPass=" + password);
                 retro_class.callapi().LOGINMODEL_CALL(email, password).enqueue(new Callback<LoginData>() {
                     @Override
                     public void onResponse(Call<LoginData> call, Response<LoginData> response) {
                         Log.d("EEE", "onResponse: " + response.body().getUserdata().getId());
                         Log.d("EEE", "onResponse: " + response.body().getResult());
-                        if(response.body().getResult()==1)
-                        {
-                            editor.putBoolean("isLogin",true);
-                            editor.putString("name",response.body().getUserdata().getName());
-                            editor.putString("email",response.body().getUserdata().getEmail());
+                        if (response.body().getResult() == 1) {
+                            editor.putBoolean("isLogin", true);
+                            editor.putString("name", response.body().getUserdata().getName());
+                            editor.putString("email", response.body().getUserdata().getEmail());
                             editor.putInt("uid", Integer.parseInt(response.body().getUserdata().getId()));
 
                             editor.commit();
-                            Intent intent=new Intent(MainActivity.this, Ecommerce_activity.class);
+                            Intent intent = new Intent(MainActivity.this, Ecommerce_activity.class);
                             startActivity(intent);
                             finish();
                         }
@@ -66,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<LoginData> call, Throwable t) {
-                        Log.e("EEE", "onFailure: "+t.getLocalizedMessage());
+                        Log.e("EEE", "onFailure: " + t.getLocalizedMessage());
                     }
                 });
             }
@@ -85,9 +84,5 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private boolean Connectinternet() {
-        ConnectivityManager manager= (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo info=manager.getActiveNetworkInfo();
-        return(info!=null && info.isConnected());
-    }
+
 }

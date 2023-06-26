@@ -18,5 +18,5 @@ public interface Api_interface {
     Call<LoginData>LOGINMODEL_CALL(@Field("email") String email, @Field("password") String password);
     @FormUrlEncoded
     @POST("addProduct.php")
-    Call<ProductData>PRODUCT_DATA_CALL(@Field("loginid") Integer uid,@Field("name") String pname,@Field("description")String decription,@Field("price") String price,@Field("imagename")String image);
+    Call<ProductData>PRODUCT_DATA_CALL(@Field("userid") Integer uid, @Field("pname") String pname, @Field("pprize") String price, @Field("pdes")String decription, @Field("productimage")String image);
 }
