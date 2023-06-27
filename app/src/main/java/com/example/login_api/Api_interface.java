@@ -1,8 +1,10 @@
 package com.example.login_api;
 
+import com.example.login_api.DataModels.AlluserProduct;
 import com.example.login_api.DataModels.LoginData;
 import com.example.login_api.DataModels.ProductData;
 import com.example.login_api.DataModels.RegisterData;
+import com.example.login_api.DataModels.UserProduct;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -19,4 +21,10 @@ public interface Api_interface {
     @FormUrlEncoded
     @POST("addProduct.php")
     Call<ProductData>PRODUCT_DATA_CALL(@Field("userid") Integer uid, @Field("pname") String pname, @Field("pprize") String price, @Field("pdes")String decription, @Field("productimage")String image);
+    @FormUrlEncoded
+    @POST("userproduct.php")
+    Call<UserProduct>USER_PRODUCT_CALL(@Field("userid") Integer uid);
+    @FormUrlEncoded
+    @POST("allproduct.php")
+    Call<AlluserProduct>ALLUSER_PRODUCT_CALL();
 }

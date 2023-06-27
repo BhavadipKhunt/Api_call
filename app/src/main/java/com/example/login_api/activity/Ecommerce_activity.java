@@ -31,6 +31,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.login_api.DataModels.ProductData;
@@ -153,6 +154,20 @@ String image;
                                 @Override
                                 public void onResponse(Call<ProductData> call, Response<ProductData> response) {
                                     Log.d("ttt", "onResponse: "+response.body().toString());
+                                    if (response.body().getConnection() == 1)
+                                    {
+                                        if (response.body().getProductaddd()==1)
+                                        {
+                                            Toast.makeText(Ecommerce_activity.this, "Product Add", Toast.LENGTH_LONG).show();
+                                        }
+                                        else
+                                        {
+                                            Toast.makeText(Ecommerce_activity.this, "Product Not Add", Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                    else {
+                                        Toast.makeText(Ecommerce_activity.this, "Somthing Went Wrong", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
 
                                 @Override

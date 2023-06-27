@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">login_api</string>
+    <string name="app_name">Ecommerce</string>
     <string name="Register"> <u>Register</u></string>
     <string name="close">close</string>
     <string name="open">open</string>
