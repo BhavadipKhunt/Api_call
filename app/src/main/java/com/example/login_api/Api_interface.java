@@ -1,6 +1,5 @@
 package com.example.login_api;
 
-import com.example.login_api.DataModels.AlluserProduct;
 import com.example.login_api.DataModels.LoginData;
 import com.example.login_api.DataModels.ProductData;
 import com.example.login_api.DataModels.RegisterData;
@@ -24,7 +23,5 @@ public interface Api_interface {
     @FormUrlEncoded
     @POST("userproduct.php")
     Call<UserProduct>USER_PRODUCT_CALL(@Field("userid") Integer uid);
-    @FormUrlEncoded
-    @POST("allproduct.php")
-    Call<AlluserProduct>ALLUSER_PRODUCT_CALL();
+
 }

@@ -156,7 +156,7 @@ String image;
                                     Log.d("ttt", "onResponse: "+response.body().toString());
                                     if (response.body().getConnection() == 1)
                                     {
-                                        if (response.body().getProductaddd()==1)
+                                        if (response.body().getProductaddd() == 1)
                                         {
                                             Toast.makeText(Ecommerce_activity.this, "Product Add", Toast.LENGTH_LONG).show();
                                         }
