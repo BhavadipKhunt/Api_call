@@ -1,4 +1,4 @@
-package com.example.login_api;
+package com.example.login_api.Adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.login_api.DataModels.Productdatum;
+import com.example.login_api.R;
 
 
 import java.util.List;

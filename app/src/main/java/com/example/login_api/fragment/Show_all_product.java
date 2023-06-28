@@ -15,7 +15,7 @@ import com.example.login_api.DataModels.AlluserProduct;
 import com.example.login_api.DataModels.Productdatum;
 import com.example.login_api.DataModels.retro_class;
 import com.example.login_api.R;
-import com.example.login_api.User_product_adapter;
+import com.example.login_api.Adapter.User_product_adapter;
 
 import java.util.ArrayList;
 import java.util.List;

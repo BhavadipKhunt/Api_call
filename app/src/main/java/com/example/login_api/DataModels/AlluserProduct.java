@@ -43,4 +43,12 @@ public class AlluserProduct {
         this.productdata = productdata;
     }
 
+    @Override
+    public String toString() {
+        return "AlluserProduct{" +
+                "connection=" + connection +
+                ", result=" + result +
+                ", productdata=" + productdata +
+                '}';
+    }
 }

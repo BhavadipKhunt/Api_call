@@ -2,7 +2,6 @@ package com.example.login_api.fragment;
 
 import static com.example.login_api.activity.SplashScreen.preferences;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,14 +15,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 
-
-import com.example.login_api.DataModels.ProductData;
 import com.example.login_api.DataModels.Productdatum;
 import com.example.login_api.DataModels.UserProduct;
 import com.example.login_api.DataModels.retro_class;
 import com.example.login_api.R;
-import com.example.login_api.User_product_adapter;
-import com.example.login_api.activity.Ecommerce_activity;
+import com.example.login_api.Adapter.User_product_adapter;
 
 import java.util.ArrayList;
 import java.util.List;
