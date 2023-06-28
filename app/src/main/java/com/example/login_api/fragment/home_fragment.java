@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 
+
 import com.example.login_api.DataModels.ProductData;
 import com.example.login_api.DataModels.Productdatum;
 import com.example.login_api.DataModels.UserProduct;
@@ -35,7 +36,7 @@ public class home_fragment extends Fragment {
 
 List<Productdatum> productdata=new ArrayList<>();
 RecyclerView recyclerView;
-ArrayList<Productdatum> userprosuct=new ArrayList<>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

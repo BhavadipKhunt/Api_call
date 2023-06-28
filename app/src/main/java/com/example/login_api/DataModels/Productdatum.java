@@ -76,15 +76,4 @@ public class Productdatum {
         this.image = image;
     }
 
-    @Override
-    public String toString() {
-        return "Productdatum{" +
-                "id='" + id + '\'' +
-                ", uid='" + uid + '\'' +
-                ", pname='" + pname + '\'' +
-                ", description='" + description + '\'' +
-                ", price='" + price + '\'' +
-                ", image='" + image + '\'' +
-                '}';
-    }
 }

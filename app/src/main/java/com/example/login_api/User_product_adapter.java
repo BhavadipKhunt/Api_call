@@ -14,15 +14,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.login_api.DataModels.Productdatum;
 
+
 import java.util.List;
 
 public class User_product_adapter extends RecyclerView.Adapter<User_product_adapter.Userholder> {
     Context context;
     List<Productdatum> productdata;
+
+
+
+
     public User_product_adapter(Context context, List<Productdatum> productdata) {
-        this.context=context;
         this.productdata=productdata;
+        this.context=context;
     }
+
 
     @NonNull
     @Override
