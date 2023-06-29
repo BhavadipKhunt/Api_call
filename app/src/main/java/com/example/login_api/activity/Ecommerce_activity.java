@@ -15,9 +15,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -44,6 +47,11 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Base64;
 import java.util.Random;
 
@@ -57,8 +65,9 @@ DrawerLayout drawerLayout;
 Toolbar toolbar;
 Button add;
 EditText pname,pdecs,pprice;
-ImageView imageView;
-String image;
+ImageView imageView,headerImg;
+String image,imgPath;
+String imgName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +88,7 @@ String image;
         uemail=preferences.getString("email","");
         Log.d("TTT", "onCreate: "+uname);
         Log.d("TTT", "onCreate: "+uemail);
+        headerImg=headerView.findViewById(R.id.HeaderImage);
         nametext.setText(""+uname);
         emailtext.setText(""+uemail);
         setSupportActionBar(toolbar);
@@ -144,6 +154,10 @@ String image;
                             price=pprice.getText().toString();
                             int r=new Random().nextInt(100);
                             Bitmap bitmap= ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+                            imgName=imgName+new Random().nextInt(10000)+".jpg";
+                            imgPath=saveToInternalStorage(bitmap);
+                            imgPath=imgPath+"/"+imgName;
+                            loadImageFromStorage(imgPath);
                             ByteArrayOutputStream bos=new ByteArrayOutputStream();
                             bitmap.compress(Bitmap.CompressFormat.JPEG,30,bos);
                             byte[] byteArray = bos.toByteArray();
@@ -203,11 +217,53 @@ String image;
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
+
                 Uri resultUri = result.getUri();
+
                 imageView.setImageURI(resultUri);
+
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
         }
+    }
+    private String saveToInternalStorage(Bitmap bitmapImage){
+        //ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        // path to /data/data/yourapp/app_data/imageDir
+        File directory=getApplicationContext().getDir("imageDir", Context.MODE_PRIVATE);
+        // Create imageDir
+
+        File mypath=new File(directory,imgName);
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mypath);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return directory.getAbsolutePath();
+    }
+    private void loadImageFromStorage(String path)
+    {
+
+        try {
+            File f=new File(path);
+            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+
+            headerImg.setImageBitmap(b);
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+
     }
 }

@@ -18,19 +18,15 @@ import com.example.login_api.R;
 
 import java.util.List;
 
-public class User_product_adapter extends RecyclerView.Adapter<User_product_adapter.Userholder> {
+public class
+User_product_adapter extends RecyclerView.Adapter<User_product_adapter.Userholder> {
     Context context;
     List<Productdatum> productdata;
-
-
-
 
     public User_product_adapter(Context context, List<Productdatum> productdata) {
         this.productdata=productdata;
         this.context=context;
     }
-
-
     @NonNull
     @Override
     public Userholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

@@ -10,7 +10,8 @@
     android:layout_height="@dimen/_80sdp"
     android:layout_gravity="center"
     android:layout_marginHorizontal="@dimen/_15sdp"
-    android:src="@drawable/img_1"/>
+    android:src="@drawable/img_1"
+    android:id="@+id/HeaderImage"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

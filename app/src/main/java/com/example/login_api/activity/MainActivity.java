@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
                 retro_class.callapi().LOGINMODEL_CALL(email, password).enqueue(new Callback<LoginData>() {
                     @Override
                     public void onResponse(Call<LoginData> call, Response<LoginData> response) {
-                        Log.d("EEE", "onResponse: " + response.body().getUserdata().getId());
-                        Log.d("EEE", "onResponse: " + response.body().getResult());
+                       // Log.d("EEE", "onResponse: " + response.body().getUserdata().getId());
+                        //Log.d("EEE", "onResponse: " + response.body().getResult());
                         if (response.body().getResult() == 1) {
                             editor.putBoolean("isLogin", true);
                             editor.putString("name", response.body().getUserdata().getName());
