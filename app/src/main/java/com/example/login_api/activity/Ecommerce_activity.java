@@ -68,6 +68,7 @@ EditText pname,pdecs,pprice;
 ImageView imageView,headerImg;
 String image,imgPath;
 String imgName;
+int cnt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +103,8 @@ String imgName;
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .start(Ecommerce_activity.this);
+                cnt=1;
+
             }
         });
         imgName=imgName+new Random().nextInt(10000)+".jpg";
@@ -155,6 +158,7 @@ String imgName;
                             CropImage.activity()
                                     .setGuidelines(CropImageView.Guidelines.ON)
                                     .start(Ecommerce_activity.this);
+                            cnt=2;
                         }
                     });
                     add.setOnClickListener(new View.OnClickListener() {
@@ -233,9 +237,18 @@ String imgName;
 
                 Uri resultUri = result.getUri();
 
-                imageView.setImageURI(resultUri);
+               if(cnt==1)
+               {
+                   headerImg.setImageURI(resultUri);
+               }
+               else if(cnt==2)
+               {
+                   imageView.setImageURI(resultUri);
+               }
 
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+            }
+
+            else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
         }

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.example.login_api.DataModels.AlluserProduct;
 import com.example.login_api.DataModels.Productdatum;
 import com.example.login_api.DataModels.retro_class;
+import com.example.login_api.GetPosition;
 import com.example.login_api.R;
 import com.example.login_api.Adapter.User_product_adapter;
 
@@ -58,7 +59,14 @@ SwipeRefreshLayout refreshLayout;
                     @Override
                     public void onRefresh() {
                         Collections.shuffle(getAllproduct);
-                        User_product_adapter adapter =new User_product_adapter(getContext(),getAllproduct);
+                        User_product_adapter adapter =new User_product_adapter(getContext(),getAllproduct, new GetPosition() {
+                            @Override
+                            public void onRecyclerItemClick(int position) {
+                                Log.d("TTT", "onRecyclerItemClick: "+position);
+
+
+                            }
+                        });
                         recyclerView.setAdapter(adapter);
                         refreshLayout.setRefreshing(false);
                     }

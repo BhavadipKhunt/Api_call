@@ -1,12 +1,8 @@
 package com.example.login_api.Adapter;
 
-import static android.app.Activity.RESULT_OK;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.example.login_api.DataModels.DeletProduct;
 import com.example.login_api.DataModels.Productdatum;
 import com.example.login_api.DataModels.retro_class;
+import com.example.login_api.GetPosition;
 import com.example.login_api.R;
 import com.theartofdev.edmodo.cropper.CropImage;
 
@@ -41,16 +37,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class
-User_product_adapter extends RecyclerView.Adapter<User_product_adapter.Userholder> {
+User_product_adapter extends RecyclerView.Adapter<User_product_adapter.Userholder>
+{
     Context context;
     List<Productdatum> productdata;
     TextView uname,uprice,udec;
     Button update;
     ImageView uimage;
+    GetPosition getPosition;
 
-    public User_product_adapter(Context context, List<Productdatum> productdata) {
+    public User_product_adapter(Context context, List<Productdatum> productdata, GetPosition getPosition) {
         this.productdata=productdata;
         this.context=context;
+        this.getPosition=getPosition;
     }
     @NonNull
     @Override
@@ -67,12 +66,19 @@ User_product_adapter extends RecyclerView.Adapter<User_product_adapter.Userholde
         holder.price.setText(""+productdata.get(position).getPrice());
         Glide.with(context).load("https://bhavadipandroid.000webhostapp.com/android/"+productdata.get(position).getImage()).into(holder.imageView);
         Log.d("GGG", "onBindViewHolder: "+productdata.get(position).getImage());
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getPosition.onRecyclerItemClick(holder.getAdapterPosition());
+            }
+        });
         holder.relativeLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 PopupMenu popupMenu=new PopupMenu(context,holder.relativeLayout);
                 popupMenu.getMenuInflater().inflate(R.menu.up_de,popupMenu.getMenu());
                 popupMenu.setGravity(Gravity.END);
+
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
@@ -96,6 +102,7 @@ User_product_adapter extends RecyclerView.Adapter<User_product_adapter.Userholde
                                             .start(context,new Fragment());
                                 }
                             });
+                            dialog.show();
 
                             update.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -182,7 +189,22 @@ User_product_adapter extends RecyclerView.Adapter<User_product_adapter.Userholde
             price=itemView.findViewById(R.id.product_show_price);
             imageView=itemView.findViewById(R.id.product_show_image);
             relativeLayout=itemView.findViewById(R.id.Reletiv_show);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getPosition.onRecyclerItemClick(getAdapterPosition());
+                }
+            });
         }
+
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
     }
 
 }

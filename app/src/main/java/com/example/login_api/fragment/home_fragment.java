@@ -19,11 +19,11 @@ import android.widget.Toast;
 import com.example.login_api.DataModels.Productdatum;
 import com.example.login_api.DataModels.UserProduct;
 import com.example.login_api.DataModels.retro_class;
+import com.example.login_api.GetPosition;
 import com.example.login_api.R;
 import com.example.login_api.Adapter.User_product_adapter;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -72,7 +72,12 @@ SwipeRefreshLayout refreshLayout;
                                     @Override
                                     public void onRefresh() {
                                         Collections.shuffle(productdata);
-                                        User_product_adapter adapter=new User_product_adapter(getContext(),productdata);
+                                        User_product_adapter adapter=new User_product_adapter(getContext(),productdata, new GetPosition() {
+                                            @Override
+                                            public void onRecyclerItemClick(int position) {
+                                                Log.d("TTT", "onRecyclerItemClick: "+position);
+                                            }
+                                        });
                                         LinearLayoutManager manager=new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false);
                                         recyclerView.setLayoutManager(manager);
                                         recyclerView.setAdapter(adapter);
