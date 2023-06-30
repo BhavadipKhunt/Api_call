@@ -5,10 +5,14 @@
     android:layout_height="match_parent"
 
     tools:context=".fragment.home_fragment">
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/Home_refresh">
 
 <androidx.recyclerview.widget.RecyclerView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/Show_user_recycler"/>
-
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </FrameLayout>

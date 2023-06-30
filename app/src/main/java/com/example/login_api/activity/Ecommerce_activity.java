@@ -96,6 +96,19 @@ String imgName;
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         addfragment(new home_fragment());
+        headerImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CropImage.activity()
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .start(Ecommerce_activity.this);
+            }
+        });
+        imgName=imgName+new Random().nextInt(10000)+".jpg";
+        Bitmap bitmap= ((BitmapDrawable)headerImg.getDrawable()).getBitmap();
+        imgPath=saveToInternalStorage(bitmap);
+                            imgPath=imgPath+"/"+imgName;
+                            loadImageFromStorage(imgPath);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -154,10 +167,10 @@ String imgName;
                             price=pprice.getText().toString();
                             int r=new Random().nextInt(100);
                             Bitmap bitmap= ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-                            imgName=imgName+new Random().nextInt(10000)+".jpg";
-                            imgPath=saveToInternalStorage(bitmap);
-                            imgPath=imgPath+"/"+imgName;
-                            loadImageFromStorage(imgPath);
+//                            imgName=imgName+new Random().nextInt(10000)+".jpg";
+//                            imgPath=saveToInternalStorage(bitmap);
+//                            imgPath=imgPath+"/"+imgName;
+//                            loadImageFromStorage(imgPath);
                             ByteArrayOutputStream bos=new ByteArrayOutputStream();
                             bitmap.compress(Bitmap.CompressFormat.JPEG,30,bos);
                             byte[] byteArray = bos.toByteArray();

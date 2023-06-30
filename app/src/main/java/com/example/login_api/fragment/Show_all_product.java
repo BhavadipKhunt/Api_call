@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.example.login_api.R;
 import com.example.login_api.Adapter.User_product_adapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -30,6 +32,7 @@ public class Show_all_product extends Fragment {
 
 RecyclerView recyclerView;
 List<Productdatum> getAllproduct=new ArrayList<>();
+SwipeRefreshLayout refreshLayout;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +46,7 @@ List<Productdatum> getAllproduct=new ArrayList<>();
        recyclerView=view.findViewById(R.id.show_all_recycler);
         LinearLayoutManager manager=new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
         recyclerView.setLayoutManager(manager);
+        refreshLayout=view.findViewById(R.id.all_refresh);
         retro_class.callapi().ALLUSER_PRODUCT_CALL(1).enqueue(new Callback<AlluserProduct>() {
             @Override
             public void onResponse(Call<AlluserProduct> call, Response<AlluserProduct> response) {
@@ -50,8 +54,16 @@ List<Productdatum> getAllproduct=new ArrayList<>();
                 {
                     getAllproduct.add(response.body().getProductdata().get(i));
                 }
-                User_product_adapter adapter =new User_product_adapter(getContext(),getAllproduct);
-                recyclerView.setAdapter(adapter);
+                refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        Collections.shuffle(getAllproduct);
+                        User_product_adapter adapter =new User_product_adapter(getContext(),getAllproduct);
+                        recyclerView.setAdapter(adapter);
+                        refreshLayout.setRefreshing(false);
+                    }
+                });
+
             }
 
             @Override

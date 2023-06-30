@@ -1,9 +1,11 @@
 package com.example.login_api.inter_face;
 
 import com.example.login_api.DataModels.AlluserProduct;
+import com.example.login_api.DataModels.DeletProduct;
 import com.example.login_api.DataModels.LoginData;
 import com.example.login_api.DataModels.ProductData;
 import com.example.login_api.DataModels.RegisterData;
+import com.example.login_api.DataModels.UpdateProduct;
 import com.example.login_api.DataModels.UserProduct;
 
 import retrofit2.Call;
@@ -27,5 +29,11 @@ public interface Api_interface {
     @FormUrlEncoded
     @POST("allproduct.php")
     Call<AlluserProduct>ALLUSER_PRODUCT_CALL(@Field("userid") Integer id);
+    @FormUrlEncoded
+    @POST("deleteproduct.php")
+    Call<DeletProduct>DELET_PRODUCT_CALL(@Field("id") Integer id);
+    @FormUrlEncoded
+    @POST("updateproduct.php")
+    Call<UpdateProduct>UPDATE_PRODUCT_CALL(@Field("id") Integer id,@Field("name")String name,@Field("price")String price,@Field("description")String dec,@Field("imagedata")String imagedata,@Field("imagename")String imagename);
 
 }
